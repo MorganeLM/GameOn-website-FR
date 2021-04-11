@@ -11,8 +11,9 @@ let lastName = document.querySelector('#last');
 let email = document.querySelector('#email');
 let birthDate = document.querySelector('#birthdate');
 let quantity = document.querySelector('#quantity');
+let locationFiel = document.querySelector('.location');
 let towns = document.querySelectorAll(".location-checkbox");
-let useConditions = document.querySelector(".checkbox1");
+let useConditions = document.querySelector("#checkbox1");
 let nextEvent = document.querySelector(".checkbox2");
 
 let errorMessages = [
@@ -26,7 +27,8 @@ let errorMessages = [
 ];
 
 let error = [];
-
+let locationCheckedValue;
+let gcuCheckedValue;
 // Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
 // Les données doivent être saisies correctement :
 
@@ -38,10 +40,22 @@ lastName.addEventListener('input', lastNameLenght);
 email.addEventListener('input', emailValidFormat);
 birthDate.addEventListener('input', birthDateValid);
 quantity.addEventListener('input', isANumber);
+towns.forEach((town) => town.addEventListener('change', isCheck));
+locationFiel.addEventListener('change', isOneOptionChecked);
+useConditions.addEventListener('change', gcuChecked)
 
 // check if all fields are well completed before submit
 form.addEventListener("submit", function(e){
   e.preventDefault();
+
+  isOneOptionChecked();
+  let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
+  if (!gcuCheckedValue){
+      error.push('non gcu')
+      alertGcuChecked.innerHTML = errorMessages[6];
+  } else {
+    alertGcuChecked.innerHTML = "";
+  }
 
   if(error.length === 0){
     //succes
@@ -50,6 +64,7 @@ form.addEventListener("submit", function(e){
   }else{
     //error
     console.log('WRONG')
+    error = [];
     //return messages
   }
 })
@@ -80,7 +95,7 @@ function lastNameLenght(){
 // (3) L'adresse électronique est valide.
 function emailValidFormat(){
   let alertEmailFormat = document.querySelector(".email > p:first-of-type");
-  // REGEX "\S" =	Any Non-whitespace character
+  // REGEX "\S" = any Non-whitespace character
   let mailFormat = /\S+@\S+\.\S+/;
   // Pour respecter la spécification HTML5 (MDN : https://developer.mozilla.org/fr/docs/Learn/Forms/Form_validation)
   let mailFormat2 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -125,12 +140,28 @@ function isANumber(){
 }
 
 // (5) Un bouton radio est sélectionné.
-//foreach -> if((radioInputUn.checked || radioInputDeux.checked || radioInputTrois.checked || radioInputQuatre.checked || radioInputCinq.checked || radioInputSix.checked) == true){
-//   valid = true
-// } else...
-// }
-// (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée
+function isOneOptionChecked(){
+  let alertOptionEmpty = document.querySelector(".location > p:first-of-type");
+  if(!locationCheckedValue){
+    alertOptionEmpty.innerHTML = errorMessages[5];
+    error.push('check option')
+  }else{
+    alertOptionEmpty.innerHTML = "";
+  }
+}
 
+function isCheck(){
+  if(this.checked){
+    locationCheckedValue = this.value;
+  }
+}
+
+// (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée
+function gcuChecked(){
+  if(this.checked){
+    gcuCheckedValue = this.value;
+  }
+}
 
 
 // ????
