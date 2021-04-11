@@ -68,6 +68,13 @@ img {
   display: none;
 }
 
+/* My rules */
+.formData > p:first-of-type{
+  color: red;
+  font-size: 0.7em;
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
@@ -102,7 +109,6 @@ img {
 } 
 
 main {
-  font-size: 130%;
   font-weight: bolder;
   color: black;
   padding-top: 0.5vw;

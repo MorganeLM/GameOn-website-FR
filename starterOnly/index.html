@@ -56,35 +56,40 @@
       <div class="content">
         <span class="close"></span>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onsubmit="return validate();" id="inscriptionForm">
-            
-            <div class="formData">
+          <!-- <form name="reserve" action="index.html" method="get" onsubmit="return validate();" id="inscriptionForm"> -->
+          <form name="reserve" action="index.html" method="get" id="inscriptionForm">
+              <div class="formData first">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" minlength="2" /><br>
+              <p></p>
             </div>
 
-            <div class="formData">
+            <div class="formData last">
               <label for="last">Nom</label><br>
-              <input class="text-control" type="text" id="last" name="last" /><br>
+              <input class="text-control" type="text" id="last" name="last" minlength="2" /><br>
+              <p></p>
             </div>
 
-            <div class="formData">
+            <div class="formData email">
               <label for="email">E-mail</label><br>
               <input class="text-control" type="email" id="email" name="email" /><br>
+              <p></p>
             </div>
 
-            <div class="formData">
+            <div class="formData birthdate">
               <label for="birthdate">Date de naissance</label><br>
               <input class="text-control" type="date" id="birthdate" name="birthdate" /><br>
+              <p></p>
             </div>
 
-            <div class="formData">
+            <div class="formData quantity">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+              <p></p>
             </div>
 
             <p class="text-label">Quelles villes ?</p>
-            <div class="formData">
+            <div class="formData location">
               <input class="checkbox-input location-checkbox" type="radio" id="location1" name="location" value="New York" />
               <label class="checkbox-label" for="location1">
                 <span class="checkbox-icon"></span>
@@ -109,14 +114,16 @@
               <label class="checkbox-label location-checkbox" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label>
+              <p></p>
             </div>
 
-            <div class="formData">
+            <div class="formData gcu">
               <input class="checkbox-input" type="checkbox" id="checkbox1" checked />
               <label class="checkbox2-label" for="checkbox1" required>
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
               </label>
+              <p></p>
 
               <br>
 
