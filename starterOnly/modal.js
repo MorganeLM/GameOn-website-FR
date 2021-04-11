@@ -82,7 +82,9 @@ function emailValidFormat(){
   let alertEmailFormat = document.querySelector(".email > p:first-of-type");
   // REGEX "\S" =	Any Non-whitespace character
   let mailFormat = /\S+@\S+\.\S+/;
-  if(this.value.match(mailFormat)){
+  // Pour respecter la spécification HTML5 (MDN : https://developer.mozilla.org/fr/docs/Learn/Forms/Form_validation)
+  let mailFormat2 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if(this.value.match(mailFormat) && this.value.match(mailFormat2)){
     this.style.border = "2px solid green";
     alertEmailFormat.innerHTML =  "";
   }else{
@@ -94,12 +96,19 @@ function emailValidFormat(){
 // (3bis) Date de naissance = date < aujourd'hui
 function birthDateValid(){
   let alertBirthdate = document.querySelector(".birthdate > p:first-of-type");
-  if (this.value.length < 3){
+  // Date du jour en ms
+  let today = new Date;
+  today = today.getTime();
+  // Date sélectionnée en ms
+  let birthday = new Date(this.value);
+  birthday = birthday.getTime();
+  // La date de naissance est un nombre et inférieur à aujourd'hui
+  if (isNaN(birthday) || birthday > today){
       this.style.border = "2px solid red";
-      alertlastNameLenght.innerHTML = errorMessages[3];
+      alertBirthdate.innerHTML = errorMessages[3];
   } else {
       this.style.border = "2px solid green";
-      alertlastNameLenght.innerHTML =  "";
+      alertBirthdate.innerHTML =  "";
   }
 }
 
@@ -116,6 +125,10 @@ function isANumber(){
 }
 
 // (5) Un bouton radio est sélectionné.
+//foreach -> if((radioInputUn.checked || radioInputDeux.checked || radioInputTrois.checked || radioInputQuatre.checked || radioInputCinq.checked || radioInputSix.checked) == true){
+//   valid = true
+// } else...
+// }
 // (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée
 
 
