@@ -15,6 +15,7 @@ let locationFiel = document.querySelector('.location');
 let towns = document.querySelectorAll(".location-checkbox");
 let useConditions = document.querySelector("#checkbox1");
 let nextEvent = document.querySelector(".checkbox2");
+let modalBody = document.querySelector('.modal-body');
 
 let errorMessages = [
   "Veuillez entrer 2 caractères ou plus pour le champ du prénom.",
@@ -29,6 +30,7 @@ let errorMessages = [
 let error = [];
 let locationCheckedValue;
 let gcuCheckedValue;
+
 // Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
 // Les données doivent être saisies correctement :
 
@@ -61,18 +63,22 @@ form.addEventListener("submit", function(e){
   gcuChecked(useConditions);
 
   isOneOptionChecked();
+
   let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
   if (!gcuCheckedValue){
-      error.push('non gcu')
+      error.push('gcu error');
       alertGcuChecked.innerHTML = errorMessages[6];
   } else {
-    alertGcuChecked.innerHTML = "";
+      alertGcuChecked.innerHTML = "";
+      gcuCheckedValue = "";
   }
 
   if(error.length === 0){
     //succes
     console.log('Good job');
     //submit
+    modalBody.innerHTML = '<p class="thankyou">Merci !<br/> Votre réservation a été reçue.</p><input class="button btn-submit" id="secondModalClosingBtn" type="submit" value="Fermer" />';
+    document.querySelector('#secondModalClosingBtn').addEventListener("click", closeModal);
   }else{
     //error
     console.log('WRONG')
@@ -84,9 +90,10 @@ form.addEventListener("submit", function(e){
 // (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
 function fistNameLenght(){
   let alertFirstNameLenght = document.querySelector(".first > p:first-of-type");
-  if (firstName.value.length < 3){
+  if (firstName.value.length < 2){
       firstName.style.border = "2px solid red";
       alertFirstNameLenght.innerHTML = errorMessages[0];
+      error.push('firstname error')
   } else {
       firstName.style.border = "2px solid green";
       alertFirstNameLenght.innerHTML = "";
@@ -95,9 +102,10 @@ function fistNameLenght(){
 // (2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
 function lastNameLenght(){
   let alertlastNameLenght = document.querySelector(".last > p:first-of-type");
-  if (lastName.value.length < 3){
+  if (lastName.value.length < 2){
       lastName.style.border = "2px solid red";
       alertlastNameLenght.innerHTML = errorMessages[1];
+      error.push('lastname error')
   } else {
       lastName.style.border = "2px solid green";
       alertlastNameLenght.innerHTML =  "";
@@ -117,6 +125,7 @@ function emailValidFormat(){
   }else{
     email.style.border = "2px solid red";
     alertEmailFormat.innerHTML = errorMessages[2];
+    error.push('email error')
   }
 }
 
@@ -133,6 +142,7 @@ function birthDateValid(){
   if (isNaN(birthday) || birthday > today){
       birthDate.style.border = "2px solid red";
       alertBirthdate.innerHTML = errorMessages[3];
+      error.push('birthdate error')
   } else {
       birthDate.style.border = "2px solid green";
       alertBirthdate.innerHTML =  "";
@@ -148,6 +158,7 @@ function isANumber(){
     }else {
       quantity.style.border = "2px solid red";
       alertQuantity.innerHTML = errorMessages[4];
+      error.push('quantity error')
   }
 }
 
@@ -156,7 +167,7 @@ function isOneOptionChecked(){
   let alertOptionEmpty = document.querySelector(".location > p:first-of-type");
   if(!locationCheckedValue){
     alertOptionEmpty.innerHTML = errorMessages[5];
-    error.push('check option')
+    error.push('location check error')
   }else{
     alertOptionEmpty.innerHTML = "";
   }
@@ -196,6 +207,7 @@ function launchModal() {
 
 // set modal close event
 modalClosingBtn.addEventListener("click", closeModal);
+
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";

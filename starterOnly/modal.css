@@ -192,6 +192,16 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  min-height: 90%;
+}
+
+.thankyou{
+  color: #fff;
+  font-size: 1.8em;
+  font-weight: 100;
+  margin: 150px auto;
+  padding: 15%;
+  text-align: center;
 }
 
 label {
