@@ -35,30 +35,18 @@ let gcuCheckedValue;
 // Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
 
 // check fields when typing
-// firstName.addEventListener('input', fistNameLenght);
-// lastName.addEventListener('input', lastNameLenght);
-// email.addEventListener('input', emailValidFormat);
-// birthDate.addEventListener('input', birthDateValid);
-// quantity.addEventListener('input', isANumber);
-towns.forEach((town) => town.addEventListener('change', isCheck(town)));
-// locationFiel.addEventListener('change', isOneOptionChecked);
+firstName.addEventListener('input', fistNameLenght);
+lastName.addEventListener('input', lastNameLenght);
+email.addEventListener('input', emailValidFormat);
+birthDate.addEventListener('input', birthDateValid);
+quantity.addEventListener('input', isANumber);
+towns.forEach((town) => town.addEventListener('change', isCheck));
+locationFiel.addEventListener('change', isOneOptionChecked);
 useConditions.addEventListener('change', gcuChecked)
-
-
 
 // check if all fields are well completed before submit
 form.addEventListener("submit", function(e){
   e.preventDefault();
-
-  fistNameLenght();
-  lastNameLenght();
-  emailValidFormat();
-  birthDateValid();
-  isANumber();
-
-  //Initialisation des check
-  towns.forEach((town) => isCheck(town));
-  gcuChecked(useConditions);
 
   isOneOptionChecked();
   let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
@@ -84,22 +72,22 @@ form.addEventListener("submit", function(e){
 // (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
 function fistNameLenght(){
   let alertFirstNameLenght = document.querySelector(".first > p:first-of-type");
-  if (firstName.value.length < 3){
-      firstName.style.border = "2px solid red";
+  if (this.value.length < 3){
+      this.style.border = "2px solid red";
       alertFirstNameLenght.innerHTML = errorMessages[0];
   } else {
-      firstName.style.border = "2px solid green";
+      this.style.border = "2px solid green";
       alertFirstNameLenght.innerHTML = "";
   }
 }
 // (2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
 function lastNameLenght(){
   let alertlastNameLenght = document.querySelector(".last > p:first-of-type");
-  if (lastName.value.length < 3){
-      lastName.style.border = "2px solid red";
+  if (this.value.length < 3){
+      this.style.border = "2px solid red";
       alertlastNameLenght.innerHTML = errorMessages[1];
   } else {
-      lastName.style.border = "2px solid green";
+      this.style.border = "2px solid green";
       alertlastNameLenght.innerHTML =  "";
   }
 }
@@ -111,11 +99,11 @@ function emailValidFormat(){
   let mailFormat = /\S+@\S+\.\S+/;
   // Pour respecter la spécification HTML5 (MDN : https://developer.mozilla.org/fr/docs/Learn/Forms/Form_validation)
   let mailFormat2 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  if(email.value.match(mailFormat) && email.value.match(mailFormat2)){
-    email.style.border = "2px solid green";
+  if(this.value.match(mailFormat) && this.value.match(mailFormat2)){
+    this.style.border = "2px solid green";
     alertEmailFormat.innerHTML =  "";
   }else{
-    email.style.border = "2px solid red";
+    this.style.border = "2px solid red";
     alertEmailFormat.innerHTML = errorMessages[2];
   }
 }
@@ -127,14 +115,14 @@ function birthDateValid(){
   let today = new Date;
   today = today.getTime();
   // Date sélectionnée en ms
-  let birthday = new Date(birthDate.value);
+  let birthday = new Date(this.value);
   birthday = birthday.getTime();
   // La date de naissance est un nombre et inférieur à aujourd'hui
   if (isNaN(birthday) || birthday > today){
-      birthDate.style.border = "2px solid red";
+      this.style.border = "2px solid red";
       alertBirthdate.innerHTML = errorMessages[3];
   } else {
-      birthDate.style.border = "2px solid green";
+      this.style.border = "2px solid green";
       alertBirthdate.innerHTML =  "";
   }
 }
@@ -142,11 +130,11 @@ function birthDateValid(){
 // (4) Pour le nombre de concours, une valeur numérique est saisie.
 function isANumber(){
   let alertQuantity = document.querySelector(".quantity > p:first-of-type");
-    if (!isNaN(parseInt(quantity.value)) && Number.isInteger(Number(quantity.value)) && quantity.value >= 0){
-      quantity.style.border = "2px solid green";
+    if (!isNaN(parseInt(this.value)) && Number.isInteger(Number(this.value)) && this.value >= 0){
+      this.style.border = "2px solid green";
       alertQuantity.innerHTML =  ""; 
     }else {
-      quantity.style.border = "2px solid red";
+      this.style.border = "2px solid red";
       alertQuantity.innerHTML = errorMessages[4];
   }
 }
@@ -162,16 +150,16 @@ function isOneOptionChecked(){
   }
 }
 
-function isCheck(town){
-  if(town.checked){
-    locationCheckedValue = town.value;
+function isCheck(){
+  if(this.checked){
+    locationCheckedValue = this.value;
   }
 }
 
 // (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée
 function gcuChecked(){
-  if(useConditions.checked){
-    gcuCheckedValue = useConditions.value;
+  if(this.checked){
+    gcuCheckedValue = this.value;
   }
 }
 
