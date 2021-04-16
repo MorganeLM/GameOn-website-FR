@@ -1,5 +1,4 @@
-// FORM CHECKING
-// DOM Elements
+// Elements du DOM 
 let modalbg = document.querySelector(".bground");
 let modalBtn = document.querySelectorAll(".modal-btn");
 let modalClosingBtn = document.querySelector(".close")
@@ -17,6 +16,7 @@ let useConditions = document.querySelector("#checkbox1");
 let nextEvent = document.querySelector(".checkbox2");
 let modalBody = document.querySelector('.modal-body');
 
+// Autres variables
 let errorMessages = [
   "Veuillez entrer 2 caractères ou plus pour le champ du prénom.",
   "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
@@ -31,39 +31,36 @@ let error = [];
 let locationCheckedValue;
 let gcuCheckedValue;
 
-// Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
-// Les données doivent être saisies correctement :
 
-// Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
-
-// check fields when typing
-// firstName.addEventListener('input', fistNameLenght);
-// lastName.addEventListener('input', lastNameLenght);
-// email.addEventListener('input', emailValidFormat);
-// birthDate.addEventListener('input', birthDateValid);
-// quantity.addEventListener('input', isANumber);
+// Evenements de vérification des champs
+// Option : La validité des champs est vérifiée à la frappe / coche
+firstName.addEventListener('input', fistNameLenght);
+lastName.addEventListener('input', lastNameLenght);
+email.addEventListener('input', emailValidFormat);
+birthDate.addEventListener('input', birthDateValid);
+quantity.addEventListener('input', isANumber);
 towns.forEach((town) => town.addEventListener('change', isCheck(town)));
-// locationFiel.addEventListener('change', isOneOptionChecked);
+locationFiel.addEventListener('change', isOneOptionChecked);
 useConditions.addEventListener('change', gcuChecked)
 
-
-
-// check if all fields are well completed before submit
+// Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
 form.addEventListener("submit", function(e){
+  // Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
   e.preventDefault();
 
+  // Validation des champs
   fistNameLenght();
   lastNameLenght();
   emailValidFormat();
   birthDateValid();
   isANumber();
 
-  //Initialisation des check
+  //Initialisation des checkbox (récupère l'état en l'absence de modification)
   towns.forEach((town) => isCheck(town));
   gcuChecked(useConditions);
 
+  // Validation des checkbox
   isOneOptionChecked();
-
   let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
   if (!gcuCheckedValue){
       error.push('gcu error');
@@ -73,20 +70,19 @@ form.addEventListener("submit", function(e){
       gcuCheckedValue = "";
   }
 
+  // Validation formulaire complet
   if(error.length === 0){
-    //succes
-    console.log('Good job');
-    //submit
+    // Formulaire valide
     modalBody.innerHTML = '<p class="thankyou">Merci !<br/> Votre réservation a été reçue.</p><input class="button btn-submit" id="secondModalClosingBtn" type="submit" value="Fermer" />';
     document.querySelector('#secondModalClosingBtn').addEventListener("click", closeModal);
   }else{
-    //error
-    console.log('WRONG')
+    // Formulaire invalide -> messages affichés par fonctions précédantes, réinitialisation du tableau d'erreur(s) pour nouvelle soumission
     error = [];
-    //return messages
   }
 })
 
+// == FONCTIONS
+// FONCTIONS DE VERIFICATION DU FORMULAIRE
 // (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
 function fistNameLenght(){
   let alertFirstNameLenght = document.querySelector(".first > p:first-of-type");
@@ -179,7 +175,7 @@ function isCheck(town){
   }
 }
 
-// (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée
+// (6) La case des conditions générales est cochée
 function gcuChecked(){
   if(useConditions.checked){
     gcuCheckedValue = useConditions.value;
@@ -187,7 +183,8 @@ function gcuChecked(){
 }
 
 
-// ????
+// FONCTIONS D'AFFICHAGE
+// Gère le toggle responsive (menu sandwich) de la barre de navigation
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -197,21 +194,15 @@ function editNav() {
   }
 }
 
-// OPEN / CLOSE MODAL
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-// launch modal form
-function launchModal() {
+// Affiche la modal du formulaire
+modalBtn.forEach((btn) => btn.addEventListener("click", function(){
   modalbg.style.display = "block";
-}
+}))
 
-// set modal close event
+// Ferme la modal
 modalClosingBtn.addEventListener("click", closeModal);
-
-// close modal form
 function closeModal() {
   modalbg.style.display = "none";
 }
 
  
-
