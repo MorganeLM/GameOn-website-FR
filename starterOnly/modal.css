@@ -67,6 +67,8 @@ p {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  text-decoration: white underline dotted;
+
 }
 
 .topnav .icon {
@@ -136,11 +138,11 @@ main {
   position: fixed;
   z-index: 1;
   left: 0;
-  top: 40px;
+  top: 0;
   height: 100%;
   width: 100%;
   overflow: auto;
-  /* background-color: rgba(26, 39, 156, 0.4); */
+  background-color: rgba(26, 39, 156, 0.4); 
 }
 
 .content {
@@ -572,6 +574,11 @@ footer {
 }
 
 @media screen and (max-width: 540px) {
+  .bground {
+    top: 40px;
+    background-color: transparent;
+  }
+
   .header-logo > img{
     width: 130px;
     margin-top: 5px;
