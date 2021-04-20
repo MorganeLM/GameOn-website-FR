@@ -1,4 +1,4 @@
-// Elements du DOM 
+// Elements du DOM
 let modalbg = document.querySelector(".bground");
 let modalBtn = document.querySelectorAll(".modal-btn");
 let modalClosingBtn = document.querySelector(".close")
