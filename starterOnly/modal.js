@@ -29,8 +29,6 @@ let errorMessages = [
 
 let error = [];
 let locationCheckedValue;
-let gcuCheckedValue;
-
 
 // Evenements de vérification des champs
 // Option : La validité des champs est vérifiée à la frappe / coche
@@ -176,7 +174,6 @@ function gcuChecked(){
       alertGcuChecked.innerHTML = errorMessages[6];
   } else {
       alertGcuChecked.innerHTML = "";
-      gcuCheckedValue = "";
   }
 }
 
