@@ -39,7 +39,6 @@ lastName.addEventListener('input', lastNameLenght);
 email.addEventListener('input', emailValidFormat);
 birthDate.addEventListener('input', birthDateValid);
 quantity.addEventListener('input', isANumber);
-towns.forEach((town) => town.addEventListener('change', isCheck(town)));
 locationFiel.addEventListener('change', isOneOptionChecked);
 useConditions.addEventListener('change', gcuChecked)
 
@@ -57,18 +56,9 @@ form.addEventListener("submit", function(e){
 
   //Initialisation des checkbox (récupère l'état en l'absence de modification)
   towns.forEach((town) => isCheck(town));
-  gcuChecked(useConditions);
-
   // Validation des checkbox
   isOneOptionChecked();
-  let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
-  if (!gcuCheckedValue){
-      error.push('gcu error');
-      alertGcuChecked.innerHTML = errorMessages[6];
-  } else {
-      alertGcuChecked.innerHTML = "";
-      gcuCheckedValue = "";
-  }
+  gcuChecked();
 
   // Validation formulaire complet
   if(error.length === 0){
@@ -79,7 +69,7 @@ form.addEventListener("submit", function(e){
     // Formulaire invalide -> messages affichés par fonctions précédantes, réinitialisation du tableau d'erreur(s) pour nouvelle soumission
     error = [];
   }
-})
+});
 
 // == FONCTIONS
 // FONCTIONS DE VERIFICATION DU FORMULAIRE
@@ -161,6 +151,9 @@ function isANumber(){
 // (5) Un bouton radio est sélectionné.
 function isOneOptionChecked(){
   let alertOptionEmpty = document.querySelector(".location > p:first-of-type");
+  // Vérifie chaque checkbox
+  towns.forEach((town) => isCheck(town));
+
   if(!locationCheckedValue){
     alertOptionEmpty.innerHTML = errorMessages[5];
     error.push('location check error')
@@ -168,7 +161,7 @@ function isOneOptionChecked(){
     alertOptionEmpty.innerHTML = "";
   }
 }
-
+// Fonction qui assigne à la variable locationCheckedValue la valeur de la ville cochée si elle l'est
 function isCheck(town){
   if(town.checked){
     locationCheckedValue = town.value;
@@ -177,8 +170,13 @@ function isCheck(town){
 
 // (6) La case des conditions générales est cochée
 function gcuChecked(){
-  if(useConditions.checked){
-    gcuCheckedValue = useConditions.value;
+  let alertGcuChecked = document.querySelector(".gcu > p:first-of-type");
+  if (!useConditions.checked){
+      error.push('gcu error');
+      alertGcuChecked.innerHTML = errorMessages[6];
+  } else {
+      alertGcuChecked.innerHTML = "";
+      gcuCheckedValue = "";
   }
 }
 
