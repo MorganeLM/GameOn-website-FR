@@ -28,6 +28,7 @@ let errorMessages = [
 ];
 
 let error = [];
+let nameFormat = /^[A-zÀ-ú][A-zÀ-ú\'\-]{1,100}/;
 let locationCheckedValue;
 let gcuCheckedValue;
 
@@ -76,7 +77,7 @@ form.addEventListener("submit", function(e){
 // (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
 function fistNameLenght(){
   let alertFirstNameLenght = document.querySelector(".first > p:first-of-type");
-  if (firstName.value.length < 2){
+  if (firstName.value.trim() === "" || firstName.value.length < 2 || !firstName.value.match(nameFormat)){
       firstName.style.border = "2px solid red";
       alertFirstNameLenght.innerHTML = errorMessages[0];
       error.push('firstname error')
@@ -88,7 +89,7 @@ function fistNameLenght(){
 // (2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
 function lastNameLenght(){
   let alertlastNameLenght = document.querySelector(".last > p:first-of-type");
-  if (lastName.value.length < 2){
+  if (lastName.value.trim() === "" || lastName.value.length < 2 || !lastName.value.match(nameFormat)){
       lastName.style.border = "2px solid red";
       alertlastNameLenght.innerHTML = errorMessages[1];
       error.push('lastname error')
